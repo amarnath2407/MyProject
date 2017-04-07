@@ -1,3 +1,98 @@
+
+
+
+Have you ever used the Page Object Design Pattern .?
+
+Yes, I have worked on  Page Object Model implies  Page Object - Design Pattern
+
+May you Explain what is about  ?
+
+Page Object Model  Design Pattern facilitates automation for enhancing test maintenance and reducing code duplication. 
+Page object is a language neutral pattern for representing a complete page or a part of a page in an objected oriented manner. 
+We use them to model the application’s user interface. Page objects expose methods that reflect things that a user can see and do on a page.
+Page object model encapsulates behaviour of a page.
+
+Our tests then use the methods of this page object class whenever they need to interact with that page of the UI. 
+The  advantage is that if the UI changes for the page, the tests themselves don’t need to change, only the code within the page object needs to change. 
+Subsequently all changes to support that new UI are located in one place.
+
+What are the main benefits of using it ?
+
+main benefits of using Page Object model 
+
+1) Maintenance
+2) clear Readability of automation scripts
+3) Reduced or eliminated duplication
+4) Re-usability of code, reduce the developers effort
+
+
+How do you locate UI Elements in a web page using WebDriver ?
+
+There are 8 ways to find UI elements locate elements.
+
+-->By id
+-->By name
+--> By className
+-->By tagName
+--> By  linkText
+--> By partialLinkText
+--> By css
+--> By Xpath
+
+In Fire-fox browser adding fireBug and firePath plug-ins which will be easy to identify the elements.
+
+How many locators do you know ?
+
+I have used id,tagName,cssSelector, className and Xpath (depends on page design).
+
+Which one do you prefer ? why ?
+
+I prefer id and cssSelector most of the time. which will reduce time while finding the element and
+will be not be a problem while running my automation scripts on cross browser testing.
+
+For dynamic changing elements i go for Xpath. 
+
+By.xpathor By.css ? Why ?
+
+By.cssSelector 
+
+Xpath engines are different in each browser, hence make them inconsistent
+IE does not have a native xpath engine, therefore selenium injects its own xpath engine for compatibility of its API. 
+Hence we lose the advantage of using native browser features that WebDriver inherently promotes.
+Xpath tend to become complex and hence make hard to read in my opinion
+
+How do you normally make assertings in your tests ?
+
+I write assertions in step-definition file. using assertj-assert plug-in tools. 
+
+Which assertion libraries do you know ?
+
+   1) <assertj-assert>3.2.0</assertj-assert>
+   2) AssertJUnit from TestNG.
+
+whats your favourite one ?
+ assertj-assert
+ 
+Do you know BDD ?
+Yes, BDD- behaviour driven development 
+
+I have used cucumber as a BDD tool which provide gherkin language to write BDD feature files.
+
+How can it improve automation ?
+
+BDD or Behaviour driven development is a process of developing software based on TDD (Test Driven Development) which focusses on behavioural specification of software units.
+
+
+
+
+
+
+
+
+
+
+
+
 !
 Tools & libraries
 =================
