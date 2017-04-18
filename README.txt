@@ -1,5 +1,251 @@
 
+Feature: a valid credential  user can able to login
 
+
+  Scenario: verify log in details
+    Given user on william-hill main page
+    When user logged in with valid credentials
+    Then verify that user has been successfully logged
+    
+    
+    
+    
+    
+    Feature: successful logged-in user can able to bet on various games
+
+
+  Scenario Outline: verify that betting on function on different games
+    Given user logged in with valid credentials
+    And navigated to <sport> event section
+    When user selected first active bet-slip
+    And  placed a bet <money>
+    Then verify "To Return" "Total stake" vales on the bet receipt
+    And verify that balance has been updated with orginal value
+    Examples:
+      | sport    | money |
+      | football | 5     |
+      | tennis   | 7     |
+      
+      
+      <?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.test.whill</groupId>
+    <artifactId>william-hill</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <log4j2.version>2.7</log4j2.version>
+        <slf4j.version>1.7.21</slf4j.version>
+        <junit.version>4.12</junit.version>
+        <lombok>1.16.8</lombok>
+        <cucumber.version>1.2.4</cucumber.version>
+        <gson.version>2.7</gson.version>
+        <cucumber-report.version>3.4.0</cucumber-report.version>
+        <webdrivermanager.version>1.5.0</webdrivermanager.version>
+        <selenium.version>2.53.1</selenium.version>
+        <maven-resource-plugin>2.7</maven-resource-plugin>
+        <maven-compiler-plugin>2.5.1</maven-compiler-plugin>
+        <maven-cucumber-reporting>0.0.8</maven-cucumber-reporting>
+        <maven-surefire-plugin>2.17</maven-surefire-plugin>
+        <mojo-exec-maven-plugin>1.2.1</mojo-exec-maven-plugin>
+    </properties>
+    <build>
+    <plugins>
+
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>${maven-compiler-plugin}</version>
+            <configuration>
+                <encoding>${utf-8}</encoding>
+                <source>${java-version}</source>
+                <target>${java-version}</target>
+            </configuration>
+        </plugin>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>${maven-surefire-plugin}</version>
+            <executions>
+                <execution>
+                    <id>test</id>
+                    <phase>test</phase>
+                    <goals>
+                        <goal>test</goal>
+                    </goals>
+                    <configuration>
+                        <threadCount>4</threadCount>
+                        <perCoreThreadCount>true</perCoreThreadCount>
+                        <forkCount>4</forkCount>
+                        <reuseForks>false</reuseForks>
+                        <argLine>-Duser.language=en</argLine>
+                        <argLine>-Xmx1024m</argLine>
+                        <argLine>-XX:MaxPermSize=256m</argLine>
+                        <argLine>-Dfile.encoding=UTF-8</argLine>
+                        <useFile>false</useFile>
+                        <includes>
+                            <include>${testToRun}</include>
+                        </includes>
+                        <testFailureIgnore>true</testFailureIgnore>
+                    </configuration>
+                </execution>
+            </executions>
+
+        </plugin>
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>${mojo-exec-maven-plugin}</version>
+            <executions>
+                <execution>
+                    <phase>test</phase>
+                    <goals>
+                        <goal>java</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <mainClass>com.orgname.test.ReportMerger</mainClass>
+                <arguments>
+                    <argument>target/cucumber-report/</argument>
+                </arguments>
+            </configuration>
+        </plugin>
+
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>${maven-resource-plugin}</version>
+            <configuration>
+                <!-- specify UTF-8, ISO-8859-1 or any other file encoding -->
+                <encoding>${utf-8}</encoding>
+
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                        <filtering>true</filtering>
+                    </resource>
+                    <resource>
+                        <directory>src/test/resources</directory>
+                        <filtering>true</filtering>
+                    </resource>
+                </resources>
+
+            </configuration>
+        </plugin>
+
+        <plugin>
+            <groupId>net.masterthought</groupId>
+            <artifactId>maven-cucumber-reporting</artifactId>
+            <version>${maven-cucumber-reporting}</version>
+            <executions>
+                <execution>
+                    <id>execution</id>
+                    <phase>test</phase>
+                    <goals>
+                        <goal>generate</goal>
+                    </goals>
+                    <configuration>
+                        <projectName>cucumbertests</projectName>
+                        <outputDirectory>target/cucumber-report/cucumber-html-reports</outputDirectory>
+                        <cucumberOutput>target/cucumber-report/cucumber.json</cucumberOutput>
+                        <enableFlashCharts>false</enableFlashCharts>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+
+    </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j2.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-firefox-driver</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-ie-driver</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+        </dependency>
+        <!-- lombok for Getter Setters-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok}</version>
+        </dependency>
+        <!--lombok -->
+
+        <!--Cucucmber dependencies -->
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-core</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson.version}</version>
+        </dependency>
+
+    </dependencies>
+
+
+</project>
 
 Have you ever used the Page Object Design Pattern .?
 
