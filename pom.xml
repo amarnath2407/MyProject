@@ -509,7 +509,7 @@
     <pluginRepositories>
         <pluginRepository>
             <id>eviwarePluginRepository</id>
-            <url>http://smartbearsoftware.com/
+            <url>https://smartbearsoftware.com/
                 repository/maven2/com/smartbear/
                 ready-api-maven-plugin/</url>
         </pluginRepository>
